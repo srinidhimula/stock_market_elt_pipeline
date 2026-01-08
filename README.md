@@ -26,5 +26,14 @@ Stock API → Python → BigQuery → dbt → Orchestrator → Analytics tables
 - infrastructure/: cloud & deployment configs
 - docs/: design & diagrams
 
+## Cloud Platform
+This project uses Google Cloud Platform with BigQuery as the cloud data warehouse. Authentication is handled via a dedicated service account.
+
+Datasets:
+- raw_market_data
+- analytics_market_data
+
+
 ## Status
 Phase 0 – project initialization
+Phase 1- GCP and BigQuery Setup
