@@ -36,4 +36,4 @@ Datasets:
 
 ## Status
 Phase 0 – project initialization
-Phase 1- GCP and BigQuery Setup
+Phase 1- GCP and BigQuery setup
