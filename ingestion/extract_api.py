@@ -6,13 +6,13 @@ from datetime import datetime
 def fetch_daily_prices(symbol: str, api_key: str) -> pd.DataFrame:
     url = "https://www.alphavantage.co/query"
     params = {
-        "function": "TIME_SERIES_DAILY_ADJUSTED",
+        "function": "TIME_SERIES_DAILY",
         "symbol": symbol,
         "apikey": api_key,
         "outputsize": "compact"
     }
 
-    response = requests.get(url, timeout=30)
+    response = requests.get(url, params=params, timeout=30)
     response.raise_for_status()
     raw = response.json()
 
@@ -28,14 +28,13 @@ def fetch_daily_prices(symbol: str, api_key: str) -> pd.DataFrame:
         "2. high": "high",
         "3. low": "low",
         "4. close": "close",
-        "5. adjusted close": "adjusted_close",
-        "6. volume": "volume"
+        "5. volume": "volume"
     }, inplace=True)
 
     df["symbol"] = symbol
     df["date"] = pd.to_datetime(df["date"]).dt.date
 
-    numeric_cols = ["open", "high", "low", "close", "adjusted_close", "volume"]
+    numeric_cols = ["open", "high", "low", "close", "volume"]
     df[numeric_cols] = df[numeric_cols].astype(float)
 
     df["ingestion_timestamp"] = datetime.utcnow()
@@ -48,7 +47,6 @@ def fetch_daily_prices(symbol: str, api_key: str) -> pd.DataFrame:
             "high",
             "low",
             "close",
-            "adjusted_close",
             "volume",
             "ingestion_timestamp",
         ]
